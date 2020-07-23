@@ -37,6 +37,6 @@ public class RefreshableBeanProperties {
     /**
      * Delay before the first execution.
      */
-    private Duration initialDelay = Duration.ZERO;
+    private Duration initialDelay = Duration.ofMinutes(1);
 
 }

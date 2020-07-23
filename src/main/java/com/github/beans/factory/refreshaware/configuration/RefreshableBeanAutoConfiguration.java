@@ -2,11 +2,12 @@ package com.github.beans.factory.refreshaware.configuration;
 
 import com.github.beans.factory.refreshaware.RefreshableBean;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -17,10 +18,10 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(annotation = EnableScheduling.class)
 @EnableConfigurationProperties(RefreshableBeanProperties.class)
-public class RefreshableBeanAutoConfiguration implements InitializingBean {
+public class RefreshableBeanAutoConfiguration {
 
     private final TaskScheduler scheduler;
     private final List<RefreshableBean> beans;
@@ -34,31 +35,24 @@ public class RefreshableBeanAutoConfiguration implements InitializingBean {
         this.properties = properties;
     }
 
-    @Override
-    public void afterPropertiesSet() {
-        if (properties.isEnabled()) {
-            Trigger trigger = createTrigger();
-            schedule(beans, scheduler, trigger);
+    @EventListener(ApplicationStartedEvent.class)
+    public void schedule() {
+        if (properties.isEnabled() && !CollectionUtils.isEmpty(beans)) {
+            scheduler.schedule(() -> callRefresh(beans), createTrigger(properties));
         }
     }
 
-    private void schedule(List<RefreshableBean> beans, TaskScheduler scheduler, Trigger trigger) {
-        if (!CollectionUtils.isEmpty(beans)) {
-            scheduler.schedule(() -> callRefresh(beans), trigger);
-        }
-    }
-
-    private void callRefresh(List<RefreshableBean> beans) {
+    private static void callRefresh(List<RefreshableBean> beans) {
         for (RefreshableBean bean : beans) {
             try {
                 bean.refresh();
             } catch (Exception e) {
-                log.error("{}#refresh() failed.", beans.getClass().getSimpleName(), e);
+                log.error("{}#refresh() failed", bean.getClass().getSimpleName(), e);
             }
         }
     }
 
-    private Trigger createTrigger() {
+    private static Trigger createTrigger(RefreshableBeanProperties properties) {
         if (properties.getCron() != null) {
             return new CronTrigger(properties.getCron());
         }

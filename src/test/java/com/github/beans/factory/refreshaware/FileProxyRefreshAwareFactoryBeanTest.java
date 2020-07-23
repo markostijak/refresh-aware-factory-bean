@@ -3,7 +3,6 @@ package com.github.beans.factory.refreshaware;
 import com.github.beans.factory.refreshaware.data.Model;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -18,7 +17,8 @@ class FileProxyRefreshAwareFactoryBeanTest {
 
     @Test
     void getObjectType() {
-        RefreshAwareFactoryBean<Model> factoryBean = new TestFileProxyRefreshAwareFactoryBean(mock(Path.class));
+        RefreshAwareFactoryBean<Model> factoryBean =
+                new TestFileProxyRefreshAwareFactoryBean(mock(Path.class));
 
         assertEquals(Model.class, factoryBean.getObjectType());
     }
