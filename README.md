@@ -87,7 +87,7 @@ This are all properties that you can configure:
 - `initial-delay` - Delay before the first refresh. Default is 1 minute. Ignored in case of cron usage.
 - `fixed-rate` - Call refresh with a fixed period between invocations. Default is 1 minute.
 - `fixed-delay` - Call refresh with a fixed period between the end of the last invocation and the start of the next. If specified, it has priority over `fixedRate` property.
-- `cron` - Call refresh with specified cron. If specified, it has priority over fixedDelay and fixedRate properties.
+- `cron` - Call refresh with specified cron. If specified, it has priority over `fixed-delay` and `fixed-rate` properties.
 
 **Lifecycle**
 
@@ -119,7 +119,7 @@ At the end, on application shutdown, Spring IOC Container will call `destroy` me
 
 **Provided implementations**
 
-There are several specific implementations of ProxyRefreshAwareFactoryBean:
+There are several specific implementations of RefreshAwareFactoryBean:
 - `ProxyRefreshAwareFactoryBean<T>` - Generic base class for others to extend from. Specific implementation is required to override **createInstance** and **shouldRefresh** methods in order to create java objects and to signal when it should be updated (recreated) respectively. Methods *refreshInstance* and *destroyInstance* are optional to override. By default *refreshInstance* will call **createInstance** and *destroyInstance* method will call *close* if the object implements AutoCloseable interface.
 - `FileProxyRefreshAwareFactoryBean<T>` - Creates Java object based on file content and recreates it once the file content is updated, knows when file content is updated. Specific implementation is required to override **createInstance** method in order to parse file content into Java objects.
 - `JsonFileProxyRefreshAwareFactoryBean<T>` - Similar as previous, but knows how to parse a json file content
