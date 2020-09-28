@@ -77,6 +77,7 @@ public class NumbersService {
 }
 ```
 Once the file content is updated, those data will be reflected to `numbers` list without any additional effort.
+
 ---
 
 # Implementation details
