@@ -12,7 +12,7 @@ The main idea is borrowed from Spring `AbstractFactoryBean<T>` and then extended
 
 Let's imagine that we have some job which creates/updates file content every hour. In that file there is data which we want to use in our application and once file content is updated, we want those changes reflected in our application.
 
-To keep things simple, let's imagine that file content is an array of numbers (`numbers.txt`). In our application we could use this data in `List<Integers>` form. So the idea is to create some kind of List implementation that 'can' track file changes and update itself. The idea is not to update the content of the list, but to create a new list and then start using that new instance. This is useful when new data is corrupted and should not be used.
+To keep things simple, let's imagine that file content is an array of numbers (`numbers.txt`). In our application we could use this data in `List<Integer>` form. So the idea is to create some kind of List implementation that 'can' track file changes and update itself. The idea is not to update the content of the list, but to create a new list and then start using that new instance. This is useful when new data is corrupted and should not be used.
 
 **Solution**
 
@@ -57,7 +57,7 @@ public class NumbersFactoryBean extends FileProxyRefreshAwareFactoryBean<List<In
    
 }
 ```
-and then in our NumberService we can autowire `numbers` list and use it:
+and then in our NumbersService we can autowire `numbers` list and use it:
 
 ```java
 @Service
@@ -76,6 +76,7 @@ public class NumbersService {
  
 }
 ```
+Once the file content is updated, those data will be reflected to `numbers` list without any additional effort.
 ---
 
 # Implementation details
