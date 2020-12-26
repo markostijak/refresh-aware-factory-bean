@@ -1,6 +1,5 @@
 package com.github.beans.factory.refreshaware.tools.filesystem;
 
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.lang.annotation.Documented;
