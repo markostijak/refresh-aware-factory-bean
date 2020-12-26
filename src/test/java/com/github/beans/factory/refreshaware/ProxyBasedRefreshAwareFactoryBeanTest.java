@@ -9,14 +9,16 @@ class ProxyBasedRefreshAwareFactoryBeanTest {
 
     @Test
     void getObjectType() {
-        RefreshAwareFactoryBean<Model> factoryBean = new TestProxyBasedRefreshAwareFactoryBean();
+        RefreshAwareFactoryBean<Model> factoryBean
+                = new TestProxyBasedRefreshAwareFactoryBean();
 
         assertEquals(Model.class, factoryBean.getObjectType());
     }
 
     @Test
     void lifeCycle() throws Exception {
-        ProxyBasedRefreshAwareFactoryBean<Model> factoryBean = new TestProxyBasedRefreshAwareFactoryBean();
+        ProxyBasedRefreshAwareFactoryBean<Model> factoryBean
+                = new TestProxyBasedRefreshAwareFactoryBean();
 
         // initialize
         factoryBean.afterPropertiesSet();
@@ -34,7 +36,8 @@ class ProxyBasedRefreshAwareFactoryBeanTest {
         assertEquals(3, model.getVersion());
     }
 
-    static class TestProxyBasedRefreshAwareFactoryBean extends ProxyBasedRefreshAwareFactoryBean<Model> {
+    static class TestProxyBasedRefreshAwareFactoryBean
+            extends ProxyBasedRefreshAwareFactoryBean<Model> {
 
         private static int counter = 1;
 

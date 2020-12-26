@@ -14,7 +14,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
 
     @Test
     void lifeCycle_regular() throws Exception {
-        RefreshAwareFactoryBean<Model> factoryBean = spy(new RegularRefreshAwareFactoryBean());
+        RefreshAwareFactoryBean<Model> factoryBean =
+                spy(new RegularRefreshAwareFactoryBean());
 
         // initialize
         factoryBean.afterPropertiesSet();
@@ -55,7 +56,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
 
     @Test
     void lifeCycle_broken_useDummyInstance() throws Exception {
-        RefreshAwareFactoryBean<Model> factoryBean = spy(new BrokenRefreshAwareFactoryBean());
+        RefreshAwareFactoryBean<Model> factoryBean =
+                spy(new BrokenRefreshAwareFactoryBean());
 
         // initialize
         factoryBean.afterPropertiesSet();
@@ -96,7 +98,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
 
     @Test
     void lifeCycle_broken_abort() throws Exception {
-        RefreshAwareFactoryBean<Model> factoryBean = spy(new AbortRefreshAwareFactoryBean());
+        RefreshAwareFactoryBean<Model> factoryBean =
+                spy(new AbortRefreshAwareFactoryBean());
 
         // initialize
         assertThrows(Exception.class, factoryBean::afterPropertiesSet);
@@ -106,7 +109,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
 
     @Test
     void lifeCycle_broken_refreshAttemptFailed() throws Exception {
-        RefreshAwareFactoryBean<Model> factoryBean = spy(new RefreshAttemptFailedRefreshAwareFactoryBean());
+        RefreshAwareFactoryBean<Model> factoryBean =
+                spy(new RefreshAttemptFailedRefreshAwareFactoryBean());
 
         // initialize
         factoryBean.afterPropertiesSet();
@@ -135,7 +139,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
     /**
      * Regular state, createInstance is able to create bean instance.
      */
-    static class RegularRefreshAwareFactoryBean extends RefreshAwareFactoryBean<Model> {
+    static class RegularRefreshAwareFactoryBean
+            extends RefreshAwareFactoryBean<Model> {
 
         private static int counter = 1;
 
@@ -170,7 +175,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
      * Unable to create instance, createInstance failed,
      * but createDummyInstance is implemented and provides default bean instance (state).
      */
-    static class BrokenRefreshAwareFactoryBean extends RefreshAwareFactoryBean<Model> {
+    static class BrokenRefreshAwareFactoryBean
+            extends RefreshAwareFactoryBean<Model> {
 
         private static int counter = 1;
 
@@ -211,7 +217,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
      * Unable to create instance, createInstance failed,
      * and createDummyInstance is not implemented.
      */
-    static class AbortRefreshAwareFactoryBean extends RefreshAwareFactoryBean<Model> {
+    static class AbortRefreshAwareFactoryBean
+            extends RefreshAwareFactoryBean<Model> {
 
         private static int counter = 1;
 
@@ -245,7 +252,8 @@ class RefreshAwareFactoryBeanLifeCycleTest {
     /**
      * Unable to refresh instance, shouldRefresh failed.
      */
-    static class RefreshAttemptFailedRefreshAwareFactoryBean extends RefreshAwareFactoryBean<Model> {
+    static class RefreshAttemptFailedRefreshAwareFactoryBean
+            extends RefreshAwareFactoryBean<Model> {
 
         private static int counter = 1;
 
