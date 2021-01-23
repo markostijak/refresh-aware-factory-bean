@@ -127,7 +127,7 @@ There are several specific implementations of RefreshAwareFactoryBean:
 - `JsonFileProxyRefreshAwareFactoryBean<T>` - Similar as previous, but knows how to parse a json file content
 - `YamlFileProxyRefreshAwareFactoryBean<T>` - Similar as previous, but knows how to parse a yaml file content
 
-# Additional informations
+# Additional information
 
 **Java CDI**
 
