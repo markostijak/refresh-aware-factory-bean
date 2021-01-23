@@ -133,6 +133,6 @@ There are several specific implementations of RefreshAwareFactoryBean:
 
 This implementation is specific to Spring Framework. If you need Java CDI implementation of this, you can contact me for more information. I have it implemented and it uses a slightly different approach and requires one additional `@Producer` method in every RefreshAwareFactoryBean.
 
-**Performances**
+**Performance**
 
 Application performances can depend on the number of used dynamic proxies in it. If you want to improve performances of Dynamic Proxies created by this module, you could switch to ByteBuddy and you will be able to create Dynamic Proxies with a direct call to method, eliminating any additional performance overhead. Contact me for more information.
