@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.beans.factory.refreshaware.configuration.RefreshableBeanAutoConfiguration
+  com.github.mscode.beans.factory.refreshaware.configuration.RefreshableBeanAutoConfiguration
